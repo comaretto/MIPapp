@@ -1,0 +1,68 @@
+MIP PRAGAS - APP PARA O CELULAR (PWA)
+=====================================
+
+O QUE TEM NESTA PASTA
+  index.html              a página do sistema
+  manifest.webmanifest    nome, cores e ícones do app
+  sw.js                   permite instalar e abrir mais rápido
+  icon-*.png              ícones do app
+
+ANTES DE TUDO
+  O computador precisa estar LIGADO, com o n8n aberto e os fluxos PUBLICADOS
+  (E, A, C, D e F, cada um com CORS * no Webhook).
+
+PARTE 1 - COLOCAR A PÁGINA NO VERCEL (uma vez só)
+  1. Crie uma conta grátis em vercel.com (pode entrar com o Google ou GitHub).
+  2. Abra o Prompt de Comando DENTRO desta pasta (na barra de endereço do
+     Explorador de Arquivos, digite cmd e Enter).
+  3. Rode:   npx vercel
+  4. Responda às perguntas:
+       - Set up and deploy?  Y
+       - Link to existing project?  N
+       - Nome do projeto: mip-pragas (ou outro)
+       - Em que pasta está o código?  ./   (só Enter)
+       - Se perguntar sobre framework/build: deixe como está (é um site simples)
+  5. Para gerar o endereço definitivo:   npx vercel --prod
+  6. Anote o endereço (algo como https://mip-pragas.vercel.app).
+
+PARTE 2 - ABRIR O TÚNEL PARA O n8n (a cada apresentação)
+  1. Instalar (uma vez):   winget install --id Cloudflare.cloudflared
+     (feche e abra o Prompt de Comando depois de instalar)
+  2. Com o n8n aberto, em OUTRO Prompt de Comando:
+        cloudflared tunnel --url http://localhost:5678
+  3. Ele mostra um endereço https://alguma-coisa.trycloudflare.com. Copie.
+  4. Deixe essa janela ABERTA durante a apresentação.
+  O endereço MUDA toda vez que você reinicia o túnel.
+
+PARTE 3 - NO CELULAR
+  1. Abra o endereço do Vercel no navegador do celular.
+  2. Na primeira vez, a tela de configuração abre sozinha:
+     cole o endereço do túnel e toque em "Testar e salvar".
+     (Depois, para trocar, toque na engrenagem no topo.)
+  3. Instalar como app:
+       Android (Chrome): menu (3 pontinhos) > "Instalar app" ou "Adicionar à tela inicial"
+       iPhone (Safari):  botão Compartilhar > "Adicionar à Tela de Início"
+  4. Abra pelo ícone verde. Vai abrir em tela cheia, como um app.
+
+ATALHO
+  Você pode abrir o app já configurado com:
+     https://SEU-ENDERECO.vercel.app/?api=https://alguma-coisa.trycloudflare.com
+  (útil para mandar o link já pronto para o celular)
+
+CHECKLIST DO DIA DA APRESENTAÇÃO
+  [ ] Computador carregado, ligado e com internet
+  [ ] n8n aberto (terminal do n8n aberto) e fluxos publicados
+  [ ] Túnel aberto e endereço novo colado no app
+  [ ] Testei: lista de lavouras carrega, semáforo responde, histórico abre
+  [ ] Senha forte na conta do n8n; fechar o túnel ao terminar
+  [ ] Plano B: vídeo curto do sistema funcionando
+
+AVISOS
+  - O túnel deixa o n8n acessível pela internet enquanto estiver aberto.
+    Use dados de teste e feche ao terminar.
+  - A autorização do Google (modo teste) expira em 7 dias: se o n8n parar de
+    ler a planilha, entre na credencial e clique em "Sign in with Google".
+  - A aba Foto usa o Fluxo B (foto + IA). O fluxo precisa estar PUBLICADO
+    no n8n. A página reduz a foto para JPEG antes de enviar.
+  - Se o app instalado mostrar uma versão antiga depois de uma mudança,
+    feche-o por completo e abra de novo (ou reinstale).
